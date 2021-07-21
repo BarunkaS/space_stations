@@ -23,6 +23,15 @@ iss_api = "https://api.n2yo.com/rest/v1/satellite/positions/25544/51.48/-3.18/0/
 css_api = "https://api.n2yo.com/rest/v1/satellite/positions/48274/51.48/-3.18/0/1/&apiKey="+private_key
 people_api = "http://api.open-notify.org/astros.json"
 
+# Connect to PostgreSQL that has historical space stations data
+connection = psycopg2.connect(user=db_user,
+                                password=db_pwd,
+                                host=db_host,
+                                port=db_port,
+                                database=db_db)
+cursor = connection.cursor()
+cursor2 = connection.cursor()
+
 # setting up layout
 st.set_page_config(layout="wide")
 
@@ -71,18 +80,18 @@ with row2_2:
 
     st.write(a,b,c)
 
+# second half shows former movements of the SSs
+
 
 st.write("")
+st.title("Where were the stations on a given date?")
 
-day_selection = str(st.date_input("Select date you want to see the trajectory for"))
+print(cursor2.execute(""" SELECT MIN(date_time), MAX(date_time) FROM public.space_stations"""))
 
-# Connect to PostgreSQL that has historical space stations data
-connection = psycopg2.connect(user=db_user,
-                                password=db_pwd,
-                                host=db_host,
-                                port=db_port,
-                                database=db_db)
-cursor = connection.cursor()
+
+day_selection = str(st.date_input("Pick a date from this selector. Currently available dates are between "+"and "))
+
+
 postgres_select_query = """ SELECT * FROM public.space_stations WHERE date(date_time) = '"""+day_selection+"'"
 cursor.execute(postgres_select_query)
 
