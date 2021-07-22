@@ -1,10 +1,8 @@
 # Tracking the International Space Stations
 
+This is an experimental app, stuff still in progress. I mostly wanted to play around with creating modules, deploying Postgre-based backend for a Streamlit hosted app.
+
 ## Next steps
 
-- Deploy collected data online to Heroku
-- Connect with the app
-- Might need change in access
-
-- Collect more data
-- Beautify current map with icons and current positions
+- Collect more data and create an orchestration for it.
+- Beautify current map with icons and current positions.
