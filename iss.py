@@ -41,11 +41,7 @@ with row1_1:
     st.title("Manned Space Stations Around Us")
 
 with row1_2:
-    st.write(
-    """
-    ##
-    Looking at the people currently in space, who they are, where they are and where they were on some given dates in the past.
-    """)
+    st.markdown('**PLEASE NOTE:** This is an experimental app and work in progress. Visit the bottom page on what next steps are planned. Cheers, Barbora')
 
 row2_1, row2_2 = st.beta_columns((4,2))
 
@@ -62,6 +58,8 @@ with row2_1:
 
     current_positions = pd.concat([iss_current_position,css_current_position])
 
+    st.write("**Currently, two manned space stations orbit the Earth. The ISS and the Chinese space station. Their current position is below.**")
+    st.write("NOTE: This map updates with fresh position every time the page is loaded.")
     st.map(current_positions)
 
 with row2_2:
@@ -74,22 +72,24 @@ with row2_2:
     for item in people:
         people_crafts.append(item["name"]+' on '+item["craft"])
 
-    a = "There are currently "+str(people_data["number"])+" astronauts in the space."
+    a = "**There are currently "+str(people_data["number"])+" astronauts in the space in total. They are: **"
     b = people_crafts
-    c = "My current location is" + iss_module.my_position()
+    c = "In case you were curious"
+    d = "Your current location is: " + iss_module.my_position()
 
     st.write(a,b,c)
+    st.write(d)
 
-# second half shows former movements of the SSs
+# second half shows former movements of the space stations
 
 
 st.write("")
 st.title("Where were the stations on a given date?")
 
-print(cursor2.execute(""" SELECT MIN(date_time), MAX(date_time) FROM public.space_stations"""))
+cursor2.execute(""" SELECT MIN(date_time) FROM public.space_stations""")
+dates_min_max = sqlio.read_sql_query(""" SELECT date(MIN(date_time)) as min, date(MAX(date_time)) as max FROM public.space_stations""", connection)
 
-
-day_selection = str(st.date_input("Pick a date from this selector. Currently available dates are between "+"and "))
+day_selection = str(st.date_input("Pick a date from this selector. Currently available dates are between "+str(dates_min_max['min'][0])+" and "+str(dates_min_max['max'][0])))
 
 
 postgres_select_query = """ SELECT * FROM public.space_stations WHERE date(date_time) = '"""+day_selection+"'"
@@ -102,3 +102,19 @@ data_frame['lat'] = pd.to_numeric(data_frame.lat)
 data_frame['lon'] = pd.to_numeric(data_frame.lon)
 
 st.map(data_frame)
+
+row3_1, row3_2 = st.beta_columns((1,1))
+
+with row3_1:
+    st.title("Potential to-do next with this app:")
+    st.write("""
+    ★ Additional data collection: Create orchestration for repeated data collection.\n
+    ★ Make the dataset thinner to save space for more days. Postgres is currently hosted on Heroku with max. 10000 rows.\n
+    ★ Change dots on first map to icons. Just to look cuter.\n
+    ★ Distinguish traces of the two stations by colour on the second map.
+    """)
+
+with row3_2:
+    st.title("Manned Space Stations Around Us")
+    st.markdown('**PLEASE NOTE:** This is an experimental app and work in progress. Visit the bottom page on what next steps are planned. Cheers, Barbora')
+
