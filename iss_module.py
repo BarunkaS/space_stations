@@ -4,7 +4,7 @@ import json
 import urllib.request
 from datetime import datetime
 import geocoder
-import turtle
+
 
 def opening_url(url):
     response = urllib.request.urlopen(url)
@@ -21,9 +21,3 @@ def station_info(opened_source):
 def my_position():
     return str(geocoder.ip('me').latlng)
 
-def create_turtle_object(gif_file):
-    turtle_object = turtle.Turtle()
-    turtle_object.shape(gif_file)
-    turtle_object.setheading(45)
-    turtle_object.penup()
-    return turtle_object
