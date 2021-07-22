@@ -89,7 +89,7 @@ st.title("Where were the stations on a given date?")
 cursor2.execute(""" SELECT MIN(date_time) FROM public.space_stations""")
 dates_min_max = sqlio.read_sql_query(""" SELECT date(MIN(date_time)) as min, date(MAX(date_time)) as max FROM public.space_stations""", connection)
 
-day_selection = str(st.date_input("Pick a date from this selector. Currently available dates are between "+str(dates_min_max['min'][0])+" and "+str(dates_min_max['max'][0])))
+day_selection = str(st.date_input("Pick a date from this selector. The database now consists of short periods of time (1-2hrs) between "+str(dates_min_max['min'][0])+" and "+str(dates_min_max['max'][0])+". More coming soon."))
 
 
 postgres_select_query = """ SELECT * FROM public.space_stations WHERE date(date_time) = '"""+day_selection+"'"
@@ -108,7 +108,7 @@ row3_1, row3_2 = st.beta_columns((1,1))
 with row3_1:
     st.title("Potential to-do next with this app:")
     st.write("""
-    ★ Additional data collection: Create orchestration for repeated data collection.\n
+    ★ Additional data collection: Create orchestration for repeated data collection. (https://deckgl.readthedocs.io/en/latest/gallery/icon_layer.html)\n
     ★ Make the dataset thinner to save space for more days. Postgres is currently hosted on Heroku with max. 10000 rows.\n
     ★ Change dots on first map to icons. Just to look cuter.\n
     ★ Distinguish traces of the two stations by colour on the second map.
