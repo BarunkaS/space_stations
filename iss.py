@@ -115,6 +115,6 @@ with row3_1:
     """)
 
 with row3_2:
-    st.title("Manned Space Stations Around Us")
-    st.markdown('**PLEASE NOTE:** This is an experimental app and work in progress. Visit the bottom page on what next steps are planned. Cheers, Barbora')
+    st.title("About me")
+    st.markdown('Happy Data Analyst working on Engineering skills as we speak. LinkedIn here: https://www.linkedin.com/in/barboraspacilova/' )
 
