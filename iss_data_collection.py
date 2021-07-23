@@ -31,25 +31,31 @@ try:
 
     # Create a cursor to perform database operations
     cursor = connection.cursor()
-    print('Cursor')
-    while True:
+    starting_time = current_time = datetime.now()
+    time_since_start_seconds = 0
+
+#data collection starts here and runs for 2 hours at a time
+
+    while time_since_start_seconds<7200:
         iss_data = iss_module.opening_url(iss_api)
         css_data = iss_module.opening_url(css_api)
-        print('URL open')
+
         postgres_insert_query = """ INSERT INTO public.space_stations (date_time,id,station,lat,lon) VALUES (%s,%s,%s,%s,%s)"""
-        print('query declared')
 
         iss_to_insert = (iss_module.station_info(iss_data))
         css_to_insert = (iss_module.station_info(css_data))
-        print('opened data')
+
         cursor.execute(postgres_insert_query, iss_to_insert)
         connection.commit() 
-        print('first query')
         cursor.execute(postgres_insert_query, css_to_insert)
         connection.commit()
-        print('2 query')
-        time.sleep(10)
 
+        time.sleep(30)
+
+        current_time = datetime.now()
+        time_since_start = current_time-starting_time
+        time_since_start_seconds = time_since_start.total_seconds()
+        
 except (Exception, Error) as error:
     print("Error while connecting to PostgreSQL", error)
 finally:
