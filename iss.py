@@ -74,11 +74,8 @@ with row2_2:
 
     a = "**There are currently "+str(people_data["number"])+" astronauts in the space in total. They are: **"
     b = people_crafts
-    c = "In case you were curious"
-    d = "Your current location is: " + iss_module.my_position()
 
-    st.write(a,b,c)
-    st.write(d)
+    st.write(a,b)
 
 # second half shows former movements of the space stations
 
