@@ -38,7 +38,7 @@ st.set_page_config(layout="wide")
 row1_1, row1_2 = st.beta_columns((2,3))
 
 with row1_1:
-    st.title("Manned Space Stations Around Us")
+    st.title("(Wo-)manned Space Stations Around Us")
 
 with row1_2:
     st.markdown('**PLEASE NOTE:** This is an experimental app and work in progress. Visit the bottom page on what next steps are planned. Cheers, Barbora')
@@ -58,7 +58,7 @@ with row2_1:
 
     current_positions = pd.concat([iss_current_position,css_current_position])
 
-    st.write("**Currently, two manned space stations orbit the Earth. The ISS and the Chinese space station. Their current position is below.**")
+    st.write("**Currently, two space stations orbit the Earth with human crew on board. The ISS and the Chinese space station. Their current position is below.**")
     st.write("NOTE: This map updates with fresh position every time the page is loaded.")
     st.map(current_positions)
 
