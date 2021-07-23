@@ -89,10 +89,26 @@ st.title("Where were the stations on a given date?")
 cursor2.execute(""" SELECT MIN(date_time) FROM public.space_stations""")
 dates_min_max = sqlio.read_sql_query(""" SELECT date(MIN(date_time)) as min, date(MAX(date_time)) as max FROM public.space_stations""", connection)
 
-day_selection = str(st.date_input("Pick a date from this selector. The database now consists of short periods of time (1-2hrs) between "+str(dates_min_max['min'][0])+" and "+str(dates_min_max['max'][0])+". More coming soon."))
+row3_1, row3_2 = st.beta_columns((1,1))
 
+with row3_1:
+    day_selection = str(st.date_input("Pick a date from this selector. The database now consists of short periods of time (1-2hrs) between "+str(dates_min_max['min'][0])+" and "+str(dates_min_max['max'][0])+". More coming soon."))
+with row3_2:
+    station_selection = st.selectbox(
+    'Which station would you like to see?',
+    ('Both','International Space Station', 'Chinese Space Station')
+    )
 
-postgres_select_query = """ SELECT * FROM public.space_stations WHERE date(date_time) = '"""+day_selection+"'"
+    if station_selection == 'International Space Station':
+        chosen_station ="'SPACE STATION'"
+    elif station_selection == 'Chinese Space Station':
+        chosen_station = "'CSS (TIANHE-1)'"
+    else:
+        chosen_station = "'SPACE STATION','CSS (TIANHE-1)'"
+    print(chosen_station)
+
+postgres_select_query = """ SELECT * FROM public.space_stations WHERE date(date_time) = '"""+day_selection+"'"+""" AND station IN ("""+chosen_station+""")"""
+
 cursor.execute(postgres_select_query)
 
 # reading our query into pandas dataframe
@@ -103,18 +119,18 @@ data_frame['lon'] = pd.to_numeric(data_frame.lon)
 
 st.map(data_frame)
 
-row3_1, row3_2 = st.beta_columns((1,1))
+row4_1, row4_2 = st.beta_columns((1,1))
 
-with row3_1:
+with row4_1:
     st.title("Potential to-do next with this app:")
     st.write("""
-    ★ Additional data collection: Create orchestration for repeated data collection. (https://deckgl.readthedocs.io/en/latest/gallery/icon_layer.html)\n
+    ★ Additional data collection: Create orchestration for repeated data collection. \n
     ★ Make the dataset thinner to save space for more days. Postgres is currently hosted on Heroku with max. 10000 rows.\n
-    ★ Change dots on first map to icons. Just to look cuter.\n
+    ★ Change dots on first map to icons. Just to look cuter. (https://deckgl.readthedocs.io/en/latest/gallery/icon_layer.html)\n
     ★ Distinguish traces of the two stations by colour on the second map.
     """)
 
-with row3_2:
+with row4_2:
     st.title("About me")
     st.markdown('Happy Data Analyst working on Engineering skills as we speak. LinkedIn here: https://www.linkedin.com/in/barboraspacilova/' )
 
