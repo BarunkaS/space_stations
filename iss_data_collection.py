@@ -17,8 +17,8 @@ db_port = os.environ.get('SPACE_STATIONS_PORT')
 db_db = os.environ.get('SPACE_STATIONS_DB')
 private_key = os.environ.get('SPACE_STATIONS_APIKEY')
 
-iss_api = "https://api.n2yo.com/rest/v1/satellite/positions/25544/51.48/-3.18/0/1/&apiKey="+private_key
-css_api = "https://api.n2yo.com/rest/v1/satellite/positions/48274/51.48/-3.18/0/1/&apiKey="+private_key
+iss_api = "https://api.n2yo.com/rest/v1/satellite/positions/25544/51.48/-3.18/0/1/&apiKey="+str(private_key)
+css_api = "https://api.n2yo.com/rest/v1/satellite/positions/48274/51.48/-3.18/0/1/&apiKey="+str(private_key)
 
 # Retreiving current locations of ISS and Chinese Space Station
 try:
