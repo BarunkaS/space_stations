@@ -121,8 +121,8 @@ row4_1, row4_2 = st.beta_columns((1,1))
 with row4_1:
     st.title("Potential to-do next with this app:")
     st.write("""
-    ★ Additional data collection: Create orchestration for repeated data collection. \n
-    ★ Make the dataset thinner to save space for more days. Postgres is currently hosted on Heroku with max. 10000 rows.\n
+    ★ DONE - Additional data collection: Create orchestration for repeated data collection. Solution: Heroku cron job trigger for iss_data_collection.py\n
+    ★ DONE - Make the dataset thinner to save space for more days. Postgres is currently hosted on Heroku with max. 10000 rows. Solution: Data is being saved for the duration of 2 hours with 30sec intervals.\n
     ★ Change dots on first map to icons. Just to look cuter. (https://deckgl.readthedocs.io/en/latest/gallery/icon_layer.html)\n
     ★ Distinguish traces of the two stations by colour on the second map.
     """)
