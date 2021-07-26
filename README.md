@@ -1,8 +1,14 @@
-# Tracking the International Space Stations
+# Tracking the International Space Stations - DEMO APP
 
-This is an experimental app, stuff still in progress. I mostly wanted to play around with creating modules, deploying Postgre-based backend for a Streamlit hosted app.
+This is an experimental app, stuff still in progress. 
 
-## Next steps
+The above-fold screen shows current position of ISS and the Chinese Space Station as well as a list of current astronauts on these vessels.
 
-- Collect more data and create an orchestration for it.
-- Beautify current map with icons and current positions.
+The second half of the screen allows to brows historical movements of these. NOTE: The database behind this app was collected within a few days, containing about 2 hours worth of GPS coordinates per day.
+
+## Where can you see the app running?
+
+Check here: https://share.streamlit.io/barunkas/space_stations/main/iss.py
+
+-- App is deployed using Stramlit and PostgreSQL hosted on Heroku.
+
