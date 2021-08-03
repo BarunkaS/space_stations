@@ -21,3 +21,7 @@ def station_info(opened_source):
 def my_position():
     return str(geocoder.ip('me').latlng)
 
+
+
+
+
