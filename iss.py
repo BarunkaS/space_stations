@@ -41,7 +41,8 @@ with row1_1:
     st.title("(Wo-)manned Space Stations Around Us")
 
 with row1_2:
-    st.markdown('**PLEASE NOTE:** This is an experimental app and work in progress. Visit the bottom page on what next steps are planned. Cheers, Barbora')
+    st.markdown("""**PLEASE NOTE:** This is an experimental app and work in progress. 
+                Visit the bottom page on what next steps are planned. Cheers, Barbora""")
 
 row2_1, row2_2 = st.beta_columns((4,2))
 
@@ -84,7 +85,8 @@ st.write("")
 st.title("Where were the stations on a given date?")
 
 cursor2.execute(""" SELECT MIN(date_time) FROM public.space_stations""")
-dates_min_max = sqlio.read_sql_query(""" SELECT date(MIN(date_time)) as min, date(MAX(date_time)) as max FROM public.space_stations""", connection)
+dates_min_max = sqlio.read_sql_query(""" SELECT date(MIN(date_time)) as min, date(MAX(date_time)) as max 
+                                            FROM public.space_stations""", connection)
 
 row3_1, row3_2 = st.beta_columns((1,1))
 
